@@ -1,0 +1,162 @@
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+
+---- Check that the file is executable ----
+>>> import os
+
+>>> import sys
+
+
+>>> os.access('7-base_geometry.py', os.X_OK)
+True
+
+---- Check for the documentation of the module ----
+>>> len(__import__("7-base_geometry").__doc__) > 10
+True
+
+---- Check for the documentation of the function ----
+>>> len(__import__("7-base_geometry").BaseGeometry.__doc__) > 10
+True
+
+---- Check for pep8 style ----
+>>> os.popen("pep8 7-base_geometry.py").read()
+''
+
+---- Check for a newline at the end of the file ----
+>>> os.popen("cat -e 7-base_geometry.py | tail -1").read()[-1]
+'\n'
+
+---- Check for the file has a shebang ----
+>>> os.popen("cat 7-base_geometry.py | head -1").read()
+'#!/usr/bin/python3\n'
+
+
+---- Check that the README file exists ----
+>>> cwd = os.getcwd()
+>>> check_readme = cwd + '/README.md'
+>>> os.path.exists(check_readme)
+True
+
+#-------------------------- Tests from 0-main.py --------------------------#
+
+>>> bg = BaseGeometry()
+
+### VALUE IS INT
+>>> bg.integer_validator("my_int", 12)
+
+
+### VALUE IS A STRING
+>>> bg.integer_validator("my_int", "JUAN")
+Traceback (most recent call last):
+TypeError: my_int must be an integer
+
+>>> bg.integer_validator("name", "John")
+Traceback (most recent call last):
+TypeError: name must be an integer
+
+>>> bg.integer_validator("age", 0)
+Traceback (most recent call last):
+ValueError: age must be greater than 0
+
+>>> bg.integer_validator("distance", -4)
+Traceback (most recent call last):
+ValueError: distance must be greater than 0
+
+>>> bg.integer_validator("width", 0)
+Traceback (most recent call last):
+ValueError: width must be greater than 0
+
+>>> bg.integer_validator("width", -89)
+Traceback (most recent call last):
+ValueError: width must be greater than 0
+
+>>> bg.integer_validator("width", None)
+Traceback (most recent call last):
+TypeError: width must be an integer
+
+>>> bg.integer_validator("width", 2.0)
+Traceback (most recent call last):
+TypeError: width must be an integer
+
+>>> bg.integer_validator("width", "hi")
+Traceback (most recent call last):
+TypeError: width must be an integer
+
+>>> bg.integer_validator("width", float("inf"))
+Traceback (most recent call last):
+TypeError: width must be an integer
+
+>>> bg.integer_validator("width", 972549672592795279249279129745959588884884)
+
+>>> bg.integer_validator("width", True)
+Traceback (most recent call last):
+TypeError: width must be an integer
+
+>>> bg.integer_validator("width", False)
+Traceback (most recent call last):
+TypeError: width must be an integer
+
+>>> bg.integer_validator("width", "3213543843514368435")
+Traceback (most recent call last):
+TypeError: width must be an integer
+
+>>> bg.integer_validator("width", 8, 20)
+Traceback (most recent call last):
+TypeError: integer_validator() takes 3 positional arguments but 4 were given
+
+>>> bg.integer_validator(8, 8)
+
+>>> bg.integer_validator(8, 2.0)
+Traceback (most recent call last):
+TypeError: 8 must be an integer
+
+>>> bg.integer_validator("width", -972549672592795279249279129745959588884884)
+Traceback (most recent call last):
+ValueError: width must be greater than 0
+
+>>> bg.integer_validator(True, 2)
+
+>>> bg.integer_validator(None, 2)
+
+>>> bg.integer_validator("Hello", [2])
+Traceback (most recent call last):
+TypeError: Hello must be an integer
+
+>>> bg.integer_validator("Hello", (2))
+
+
+>>> bg.integer_validator("Hello", {2: 2})
+Traceback (most recent call last):
+TypeError: Hello must be an integer
+
+>>> bg.integer_validator("Hello")
+Traceback (most recent call last):
+TypeError: integer_validator() missing 1 required positional argument: 'value'
+
+>>> bg.integer_validator()
+Traceback (most recent call last):
+TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
+
+>>> bg.integer_validator("Hello", (2, 2))
+Traceback (most recent call last):
+TypeError: Hello must be an integer
+
+>>> bg.integer_validator("Hello", {2, 2})
+Traceback (most recent call last):
+TypeError: Hello must be an integer
+
+>>> bg.integer_validator("Hello", -2.5)
+Traceback (most recent call last):
+TypeError: Hello must be an integer
+
+>>> bg.area()
+Traceback (most recent call last):
+Exception: area() is not implemented
+
+>>> bg.integer_validator("", 1)
+
+>>> bg.integer_validator(, )
+Traceback (most recent call last):
+SyntaxError: invalid syntax
+
+>>> a = [1, 2, 3, 4]
+>>> bg.integer_validator("asd", a[1])
