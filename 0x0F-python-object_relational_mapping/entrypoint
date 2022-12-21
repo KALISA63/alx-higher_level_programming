@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#
+# Container entrypoint
+# shellcheck disable=SC1091
+
+sudo service mysql start
+sudo sed -i 's/^%sudo\t/#&/' /etc/sudoers
+source /usr/local/bin/start-notebook.sh
