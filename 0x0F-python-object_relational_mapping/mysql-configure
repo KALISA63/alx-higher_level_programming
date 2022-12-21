@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+#
+# Configure a MySQL root user
+
+if ! service mysql start
+then
+  exit 1
+fi
+
+mysql --silent --user=root 2> /dev/null << 'EOF'
+ALTER USER 'root'@'localhost'
+IDENTIFIED WITH mysql_native_password BY 'root';
+FLUSH PRIVILEGES;
+EOF
+
+service mysql restart
